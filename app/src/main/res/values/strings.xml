@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">TARA</string>
+    <string name="signup">Daftar</string>
+    <string name="login">Masuk</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="message_login_page">Segera masukkan datamu untuk login!</string>
+    <string name="title_login_page">Ingin Rekomendasi Wisata?</string>
+    <string name="name">Nama</string>
+    <string name="logout">Keluar</string>
+    <string name="welcome_image">Welcome Image</string>
+    <string name="login_image">Login Image</string>
+    <string name="title_signup_page">Segera lengkapi data dirimu untuk membuat akun baru!</string>
+    <string name="image_signup">Image Signup</string>
+    <string name="edt_name_hint">Masukkan Nama Anda</string>
+    <string name="edt_email_hint">Masukkan Email Anda</string>
+    <string name="edt_password_hint">Masukkan Password Anda</string>
+    <string name="invalid_email">Alamat Email Tidak Valid</string>
+    <string name="invalid_password">Password tidak boleh kurang dari 8 karakter</string>
+    <string name="register_failed">Register gagal, masukkan data dengan benar!</string>
+    <string name="login_failed">Login gagal! Masukkan email dan password yang benar!</string>
+    <string name="image_logo">Logo Aplikasi</string>
+    <string name="login_dialog_message">Anda berhasil login!</string>
+    <string name="login_failed_dialog">Login gagal! Masukkan data email dan password dengan benar.</string>
+    <string name="login_failed_dialog_title">Maaf!</string>
+    <string name="dialog_positive_button">Lanjut</string>
+    <string name="register_dialog_message">Akunmu sudah jadi nih. Yuk, login dan segera bagikan ceritamu.</string>
+    <string name="label_signup">Belum punya akun?</string>
+</resources>
