@@ -26,4 +26,8 @@
     <string name="dialog_positive_button">Lanjut</string>
     <string name="register_dialog_message">Akunmu sudah jadi nih. Yuk, login dan segera bagikan ceritamu.</string>
     <string name="label_signup">Belum punya akun?</string>
+    <string name="setting_title">Setting</string>
+    <string name="search_bar">Search Bar</string>
+    <string name="searchbar_hint">Cari Tempat Wisata...</string>
+    <string name="logout_title">Logout</string>
 </resources>
