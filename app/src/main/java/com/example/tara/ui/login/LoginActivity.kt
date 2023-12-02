@@ -90,13 +90,15 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupAction() {
         binding.loginButton.setOnClickListener {
-            binding.apply {
-                if (emailEditText.error.isNullOrEmpty() && passwordEditText.error.isNullOrEmpty()) {
-                    val email = emailEditText.text.toString().trim()
-                    val password = passwordEditText.text.toString().trim()
-                    loginViewModel.login(email, password)
-                }
-            }
+//            binding.apply {
+//                if (emailEditText.error.isNullOrEmpty() && passwordEditText.error.isNullOrEmpty()) {
+//                    val email = emailEditText.text.toString().trim()
+//                    val password = passwordEditText.text.toString().trim()
+//                    loginViewModel.login(email, password)
+//                }
+//            }
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
 
         binding.btnSignup.setOnClickListener {

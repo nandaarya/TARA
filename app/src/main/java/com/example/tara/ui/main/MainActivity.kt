@@ -19,10 +19,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tara.R
 import com.example.tara.ViewModelFactory
 import com.example.tara.databinding.ActivityMainBinding
-import com.example.tara.ui.login.LoginActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -87,12 +87,12 @@ class MainActivity : AppCompatActivity() {
         val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
         mainViewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
 
-        mainViewModel.getSession().observe(this) { user ->
-            if (!user.isLogin) {
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
-            }
-        }
+//        mainViewModel.getSession().observe(this) { user ->
+//            if (!user.isLogin) {
+//                startActivity(Intent(this, LoginActivity::class.java))
+//                finish()
+//            }
+//        }
 
         setOptionMenu()
 
@@ -103,6 +103,9 @@ class MainActivity : AppCompatActivity() {
 
         checkForPermission(this)
         startLocationUpdates()
+
+        val layoutManager = LinearLayoutManager(this)
+        binding.rvTouristAttractions.layoutManager = layoutManager
 
 //        binding.btnLogout.setOnClickListener {
 //            mainViewModel.logout()
