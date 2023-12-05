@@ -18,10 +18,12 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tara.R
 import com.example.tara.ViewModelFactory
+import com.example.tara.data.DataDummy
 import com.example.tara.databinding.ActivityMainBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -40,8 +42,8 @@ class MainActivity : AppCompatActivity() {
     private var longitude: Double = 0.0
     private var latitude: Double = 0.0
     private var city: String = ""
-    private val interval: Long = 10000 // 10seconds
-    private val fastestInterval: Long = 5000 // 5 seconds
+    private val interval: Long = 300000 //  5 minutes
+    private val fastestInterval: Long = 30000 // 30 seconds
     private lateinit var mLastLocation: Location
     private lateinit var mLocationRequest: LocationRequest
     private val requestPermissionCode = 999
@@ -104,12 +106,27 @@ class MainActivity : AppCompatActivity() {
         checkForPermission(this)
         startLocationUpdates()
 
-        val layoutManager = LinearLayoutManager(this)
-        binding.rvTouristAttractions.layoutManager = layoutManager
+        val defaultLocation = Location("userLocation")
+        defaultLocation.latitude = latitude
+        defaultLocation.longitude = longitude
+        mainViewModel.saveUserLocation(defaultLocation)
+
+        mainViewModel.userLocation.observe(this, Observer {
+            setTouristAttractionList(it)
+        })
 
 //        binding.btnLogout.setOnClickListener {
 //            mainViewModel.logout()
 //        }
+    }
+
+    private fun setTouristAttractionList(userLocation: Location) {
+        val rvTouristAttractionAdapter = TouristAttractionAdapter(userLocation)
+
+        binding.rvTouristAttractions.layoutManager = LinearLayoutManager(this)
+        binding.rvTouristAttractions.adapter = rvTouristAttractionAdapter
+
+        rvTouristAttractionAdapter.addTouristAttraction(DataDummy.touristAttractionList)
     }
 
     private fun setOptionMenu() {
@@ -159,7 +176,10 @@ class MainActivity : AppCompatActivity() {
         override fun onLocationResult(locationResult: LocationResult) {
             locationResult.lastLocation
             Log.d("MainActivity", "callback: $latitude $longitude")
-            locationResult.lastLocation?.let { locationChanged(it) }
+            locationResult.lastLocation?.let {
+                locationChanged(it)
+                mainViewModel.saveUserLocation(it)
+            }
             latitude = locationResult.lastLocation?.latitude ?: 0.0
             longitude = locationResult.lastLocation?.longitude ?: 0.0
             city = getCityName(latitude, longitude)
