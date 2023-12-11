@@ -81,7 +81,7 @@ class TouristAttractionAdapter (val userLocation: Location) :
 
             binding.itemLayout.setOnClickListener {
                 val intent = Intent(itemView.context, DetailActivity::class.java)
-                intent.putExtra("bookData", itemNow)
+                intent.putExtra(DetailActivity.EXTRA_TOURIST_ATTRACTION_DATA, itemNow)
                 itemView.context.startActivity(intent)
             }
         }
