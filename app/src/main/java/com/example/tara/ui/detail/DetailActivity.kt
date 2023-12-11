@@ -3,6 +3,7 @@ package com.example.tara.ui.detail
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.bumptech.glide.Glide
 import com.example.tara.R
 import com.example.tara.data.TouristAttraction
 import com.example.tara.databinding.ActivityDetailBinding
@@ -30,6 +31,15 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
             @Suppress("DEPRECATION")
             intent.getParcelableExtra(EXTRA_TOURIST_ATTRACTION_DATA)!!
         }
+
+        binding.tvLocationName.text = data.locationName
+        Glide
+            .with(this)
+            .load(data.photoUrl)
+            .centerCrop()
+            .into(binding.ivLocationImage)
+        binding.tvDescription.text = data.description
+        binding.tvRating.text = this.getString(R.string.rating, data.rating, data.userRatingsTotal)
 
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment

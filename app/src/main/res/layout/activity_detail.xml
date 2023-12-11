@@ -22,9 +22,9 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/iv_preview_bukti"
+            android:id="@+id/iv_location_image"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:layout_margin="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,7 @@
             android:textSize="16sp"
             android:layout_margin="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_preview_bukti" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_location_image" />
 
         <TextView
             android:id="@+id/tv_description"
@@ -57,12 +57,22 @@
             android:id="@+id/tv_rating_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rating: 4.9/5 (9999 users)"
+            android:text="Rating: "
             style="@style/TextAppearance.Material3.LabelLarge"
             android:textSize="16sp"
             android:layout_margin="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_description" />
+
+        <TextView
+            android:id="@+id/tv_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4.9/5 (9999 users)"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_rating_label"
+            app:layout_constraintStart_toEndOf="@+id/tv_rating_label"
+            app:layout_constraintTop_toTopOf="@+id/tv_rating_label" />
 
         <TextView
             android:id="@+id/tv_location_label"
@@ -80,10 +90,13 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:layout_margin="16dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_location_label"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_location_label" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
