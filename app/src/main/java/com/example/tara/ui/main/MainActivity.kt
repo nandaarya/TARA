@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -23,20 +24,22 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tara.R
 import com.example.tara.ViewModelFactory
-import com.example.tara.data.DataDummy
 import com.example.tara.databinding.ActivityMainBinding
+import com.example.tara.ui.login.LoginActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
+import com.example.tara.data.Result
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainViewModel: MainViewModel
+    private lateinit var rvTouristAttractionAdapter: TouristAttractionAdapter
 
     private var fusedLocationProviderClient: FusedLocationProviderClient? = null
     private var longitude: Double = 0.0
@@ -89,12 +92,12 @@ class MainActivity : AppCompatActivity() {
         val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
         mainViewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
 
-//        mainViewModel.getSession().observe(this) { user ->
-//            if (!user.isLogin) {
-//                startActivity(Intent(this, LoginActivity::class.java))
-//                finish()
-//            }
-//        }
+        mainViewModel.getSession().observe(this) { user ->
+            if (!user.isLogin) {
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
+            }
+        }
 
         setOptionMenu()
 
@@ -111,22 +114,28 @@ class MainActivity : AppCompatActivity() {
         defaultLocation.longitude = longitude
         mainViewModel.saveUserLocation(defaultLocation)
 
-        mainViewModel.userLocation.observe(this, Observer {
-            setTouristAttractionList(it)
-        })
+        mainViewModel.userLocation.observe(this) {
+            rvTouristAttractionAdapter = TouristAttractionAdapter(it)
 
-//        binding.btnLogout.setOnClickListener {
-//            mainViewModel.logout()
-//        }
-    }
+            binding.rvTouristAttractions.layoutManager = LinearLayoutManager(this)
+            binding.rvTouristAttractions.adapter = rvTouristAttractionAdapter
+        }
 
-    private fun setTouristAttractionList(userLocation: Location) {
-        val rvTouristAttractionAdapter = TouristAttractionAdapter(userLocation)
-
-        binding.rvTouristAttractions.layoutManager = LinearLayoutManager(this)
-        binding.rvTouristAttractions.adapter = rvTouristAttractionAdapter
-
-        rvTouristAttractionAdapter.addTouristAttraction(DataDummy.touristAttractionList)
+        mainViewModel.touristAttractionList.observe(this) {
+            Log.d("list", "TES OBSERVER JALAN GA COK")
+            when (it) {
+                is Result.Loading -> showLoading(true)
+                is Result.Error -> {
+                    showLoading(false)
+                    Log.d("list", "ERROR KAH")
+                }
+                is Result.Success -> {
+                    showLoading(false)
+                    rvTouristAttractionAdapter.addTouristAttraction(it.data)
+                    Log.d("list", it.data.toString())
+                }
+            }
+        }
     }
 
     private fun setOptionMenu() {
@@ -234,7 +243,8 @@ class MainActivity : AppCompatActivity() {
 //        binding.longitudeText.text = "Longitude: $longitude"
 //        binding.latitudeText.text = "Latitude: $latitude"
         binding.tvCity.text = city
-        Log.d("MainActivity", "function: $latitude $longitude, City: ")
+        mainViewModel.getTouristAttractionList(city)
+        Log.d("MainActivity", "function: $latitude $longitude, City: $city")
     }
 
     override fun onRequestPermissionsResult(
@@ -258,5 +268,9 @@ class MainActivity : AppCompatActivity() {
 
         cityName = address?.get(0)?.adminArea ?: "Kota Tidak Terdeteksi"
         return cityName
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }

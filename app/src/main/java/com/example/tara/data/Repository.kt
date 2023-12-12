@@ -1,8 +1,10 @@
 package com.example.tara.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.example.tara.data.datastore.UserPreference
+import com.example.tara.data.response.ListTouristAttractionItem
 import com.example.tara.data.response.LoginResponse
 import com.example.tara.data.response.RegisterResponse
 import com.example.tara.data.retrofit.ApiService
@@ -50,6 +52,20 @@ class Repository private constructor(
                 saveSession(UserModel(email, token))
                 emit(Result.Success(response))
             } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
+        }
+
+    fun getTouristAttractionList(token: String, city: String): LiveData<Result<List<ListTouristAttractionItem>>> =
+        liveData(Dispatchers.IO) {
+            emit(Result.Loading)
+            try {
+                val response = apiService.getTouristAttractionList("Bearer $token", city)
+                val touristAttractionList = response.touristAttractionList
+                Log.d("list di repository", response.toString())
+                emit(Result.Success(touristAttractionList))
+            } catch (e: Exception) {
+                Log.d("list", e.message.toString())
                 emit(Result.Error(e.message.toString()))
             }
         }

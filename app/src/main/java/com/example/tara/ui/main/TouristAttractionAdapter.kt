@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.tara.R
-import com.example.tara.data.TouristAttraction
+import com.example.tara.data.response.ListTouristAttractionItem
 import com.example.tara.databinding.ItemLayoutBinding
 import com.example.tara.ui.detail.DetailActivity
 import java.util.Locale
@@ -17,9 +17,9 @@ import java.util.Locale
 class TouristAttractionAdapter (val userLocation: Location) :
     RecyclerView.Adapter<TouristAttractionAdapter.TouristAttractionViewHolder>() {
 
-    private var listOfTouristAttraction = ArrayList<TouristAttraction>()
+    private var listOfTouristAttraction = ArrayList<ListTouristAttractionItem>()
 
-    fun addTouristAttraction(list: List<TouristAttraction>) {
+    fun addTouristAttraction(list: List<ListTouristAttractionItem>) {
         this.listOfTouristAttraction.clear()
         this.listOfTouristAttraction.addAll(list)
         notifyDataSetChanged()

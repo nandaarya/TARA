@@ -20,4 +20,9 @@ interface ApiService {
         @Field("password") password: String
     ): LoginResponse
 
+    @GET("/tourist-attractions/{city}")
+    suspend fun getTouristAttractionList(
+        @Header("Authorization") token: String,
+        @Path("city") city: String
+    ): TouristAttractionListResponse
 }

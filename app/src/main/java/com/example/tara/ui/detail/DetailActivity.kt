@@ -1,11 +1,11 @@
 package com.example.tara.ui.detail
 
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.tara.R
-import com.example.tara.data.TouristAttraction
+import com.example.tara.data.response.ListTouristAttractionItem
 import com.example.tara.databinding.ActivityDetailBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -18,7 +18,7 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityDetailBinding
-    lateinit var data: TouristAttraction
+    lateinit var data: ListTouristAttractionItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +26,7 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(binding.root)
 
         data = if (Build.VERSION.SDK_INT >= 33) {
-            intent.getParcelableExtra(EXTRA_TOURIST_ATTRACTION_DATA, TouristAttraction::class.java)!!
+            intent.getParcelableExtra(EXTRA_TOURIST_ATTRACTION_DATA, ListTouristAttractionItem::class.java)!!
         } else {
             @Suppress("DEPRECATION")
             intent.getParcelableExtra(EXTRA_TOURIST_ATTRACTION_DATA)!!
