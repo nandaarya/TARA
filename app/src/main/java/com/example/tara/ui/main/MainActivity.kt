@@ -130,9 +130,11 @@ class MainActivity : AppCompatActivity() {
                     Log.d("list", "ERROR KAH")
                 }
                 is Result.Success -> {
-                    showLoading(false)
-                    rvTouristAttractionAdapter.addTouristAttraction(it.data)
-                    Log.d("list", it.data.toString())
+                    if (it.data.isNotEmpty()) {
+                        showLoading(false)
+                        rvTouristAttractionAdapter.addTouristAttraction(it.data)
+                        Log.d("list", it.data.toString())
+                    }
                 }
             }
         }
@@ -272,5 +274,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding.tvLoading.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }
