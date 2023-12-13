@@ -48,12 +48,12 @@
 
         <TextView
             android:id="@+id/tv_location"
-            android:layout_width="wrap_content"
-            android:layout_height="24dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
             android:layout_marginTop="16dp"
-            android:layout_marginStart="4dp"
-            android:gravity="center"
             android:text="Lokasi Tempat Wisata"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_location"
             app:layout_constraintTop_toBottomOf="@+id/tv_location_name" />
 
@@ -61,6 +61,7 @@
             android:id="@+id/iv_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
             android:src="@drawable/ic_baseline_star_rate_24"
@@ -74,6 +75,7 @@
             android:layout_height="24dp"
             android:gravity="center"
             android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
             android:text="5/5"
             app:layout_constraintStart_toEndOf="@id/iv_rating"
             app:layout_constraintTop_toBottomOf="@id/iv_location" />

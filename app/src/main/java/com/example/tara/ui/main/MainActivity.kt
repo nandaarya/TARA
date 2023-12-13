@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity() {
             when (it) {
                 is Result.Loading -> showLoading(true)
                 is Result.Error -> {
-                    showLoading(false)
+                    showLoading(true)
                     Log.d("list", "ERROR KAH")
                 }
                 is Result.Success -> {
