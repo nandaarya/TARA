@@ -49,7 +49,8 @@ class Repository private constructor(
             try {
                 val response = apiService.login(email, password)
                 val token = response.loginResult.token
-                saveSession(UserModel(email, token))
+                val name = response.loginResult.name
+                saveSession(UserModel(name, email, token))
                 emit(Result.Success(response))
             } catch (e: Exception) {
                 emit(Result.Error(e.message.toString()))

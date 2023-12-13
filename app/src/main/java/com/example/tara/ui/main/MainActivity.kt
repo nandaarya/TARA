@@ -33,6 +33,7 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
 import com.example.tara.data.Result
+import com.example.tara.ui.profile.ProfileActivity
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
@@ -143,13 +144,9 @@ class MainActivity : AppCompatActivity() {
     private fun setOptionMenu() {
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.menu_option -> {
-//                    val intent = Intent(this, SettingActivity::class.java)
-//                    startActivity(intent)
-                    true
-                }
-                R.id.menu_logout -> {
-                    mainViewModel.logout()
+                R.id.menu_profile -> {
+                    val intent = Intent(this, ProfileActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 else -> false

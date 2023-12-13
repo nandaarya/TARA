@@ -72,4 +72,5 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 
     implementation ("com.github.bumptech.glide:glide:4.15.1")
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
 }

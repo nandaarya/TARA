@@ -7,6 +7,7 @@ import com.example.tara.data.Repository
 import com.example.tara.di.Injection
 import com.example.tara.ui.login.LoginViewModel
 import com.example.tara.ui.main.MainViewModel
+import com.example.tara.ui.profile.ProfileViewModel
 import com.example.tara.ui.signup.SignupViewModel
 
 class ViewModelFactory(private val repository: Repository) : ViewModelProvider.NewInstanceFactory() {
@@ -22,6 +23,9 @@ class ViewModelFactory(private val repository: Repository) : ViewModelProvider.N
             }
             modelClass.isAssignableFrom(SignupViewModel::class.java) -> {
                 SignupViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
+                ProfileViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

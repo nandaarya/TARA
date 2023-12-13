@@ -25,6 +25,9 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.title = "Detail"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         data = if (Build.VERSION.SDK_INT >= 33) {
             intent.getParcelableExtra(EXTRA_TOURIST_ATTRACTION_DATA, ListTouristAttractionItem::class.java)!!
         } else {
@@ -44,6 +47,12 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+    }
+
+    @Suppress("DEPRECATION")
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

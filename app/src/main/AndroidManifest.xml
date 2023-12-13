@@ -18,16 +18,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TARA"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.profile.ProfileActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
-        <meta-data android:name="com.google.android.gms.version"
+        <meta-data
+            android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <activity
             android:name=".ui.detail.DetailActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/ActivityWithActionBar" />
         <activity
             android:name=".ui.splash.SplashscreenActivity"
             android:exported="true">
