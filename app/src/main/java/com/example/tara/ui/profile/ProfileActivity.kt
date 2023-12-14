@@ -18,6 +18,9 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.title = "Profil"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
         profileViewModel = ViewModelProvider(this, factory)[ProfileViewModel::class.java]
 
@@ -31,5 +34,11 @@ class ProfileActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    @Suppress("DEPRECATION")
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

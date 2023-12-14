@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.userpreferences.UserPreferencesActivity">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:layout_marginHorizontal="16dp"
+        android:gravity="center"
+        android:text="Tempat wisata apa saja yang anda sukai ?"
+        style="@style/TextAppearance.Material3.HeadlineSmall"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        app:chipSpacingHorizontal="39dp"
+        app:chipSpacingVertical="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_pantai"
+            style="@style/Widget.Material3.Chip.Filter"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:textAlignment="center"
+            android:text="Pantai"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_gunung"
+            style="@style/Widget.Material3.Chip.Filter"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:textAlignment="center"
+            android:text="Gunung"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_museum"
+            style="@style/Widget.Material3.Chip.Filter"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:textAlignment="center"
+            android:text="Museum"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_taman"
+            style="@style/Widget.Material3.Chip.Filter"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:textAlignment="center"
+            android:text="Taman"/>
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tampilkan Rekomendasi"
+        android:layout_marginTop="24dp"
+        android:layout_marginHorizontal="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
