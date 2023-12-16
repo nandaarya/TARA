@@ -10,25 +10,26 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
         android:layout_marginHorizontal="16dp"
         android:gravity="center"
         android:text="Tempat wisata apa saja yang anda sukai ?"
         style="@style/TextAppearance.Material3.HeadlineSmall"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/chipGroup"/>
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="24dp"
-        app:chipSpacingHorizontal="39dp"
-        app:chipSpacingVertical="8dp"
+        app:chipSpacingHorizontal="60dp"
+        app:chipSpacingVertical="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btn_save"
         app:layout_constraintTop_toBottomOf="@+id/title">
 
         <com.google.android.material.chip.Chip
@@ -36,32 +37,64 @@
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:textAlignment="center"
-            android:text="Pantai"/>
+            android:text="Pantai"
+            android:textAlignment="center" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_gunung"
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:textAlignment="center"
-            android:text="Gunung"/>
+            android:text="Gunung"
+            android:textAlignment="center" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_museum"
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:textAlignment="center"
-            android:text="Museum"/>
+            android:text="Museum"
+            android:textAlignment="center" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_taman"
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:textAlignment="center"
-            android:text="Taman"/>
+            android:text="Taman"
+            android:textAlignment="center" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_goa"
+            style="@style/Widget.Material3.Chip.Filter"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="Goa"
+            android:textAlignment="center" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_candi"
+            style="@style/Widget.Material3.Chip.Filter"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="Candi"
+            android:textAlignment="center" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_bukit"
+            style="@style/Widget.Material3.Chip.Filter"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="Bukit"
+            android:textAlignment="center" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_kebun"
+            style="@style/Widget.Material3.Chip.Filter"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="Kebun"
+            android:textAlignment="center" />
 
     </com.google.android.material.chip.ChipGroup>
 
@@ -69,11 +102,25 @@
         android:id="@+id/btn_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tampilkan Rekomendasi"
-        android:layout_marginTop="24dp"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Tampilkan Rekomendasi"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

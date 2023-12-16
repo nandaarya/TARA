@@ -10,6 +10,6 @@
     <ImageView
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/TARA"
+        android:src="@drawable/tara"
         android:contentDescription="@string/image_logo" />
 </LinearLayout>

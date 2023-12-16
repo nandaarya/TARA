@@ -7,6 +7,7 @@ import com.example.tara.data.datastore.UserPreference
 import com.example.tara.data.response.ListTouristAttractionItem
 import com.example.tara.data.response.LoginResponse
 import com.example.tara.data.response.RegisterResponse
+import com.example.tara.data.response.SetUserPreferencesResponse
 import com.example.tara.data.retrofit.ApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -50,23 +51,35 @@ class Repository private constructor(
                 val response = apiService.login(email, password)
                 val token = response.loginResult.token
                 val name = response.loginResult.name
-                saveSession(UserModel(name, email, token))
+                val userId = response.loginResult.userId
+                saveSession(UserModel(userId, name, email, token))
                 emit(Result.Success(response))
             } catch (e: Exception) {
                 emit(Result.Error(e.message.toString()))
             }
         }
 
-    fun getTouristAttractionList(token: String, city: String): LiveData<Result<List<ListTouristAttractionItem>>> =
+    fun getTouristAttractionList(userId: String, token: String, city: String): LiveData<Result<List<ListTouristAttractionItem>>> =
         liveData(Dispatchers.IO) {
             emit(Result.Loading)
             try {
-                val response = apiService.getTouristAttractionList("Bearer $token", city)
+                val response = apiService.getTouristAttractionList( "Bearer $token", city, userId)
                 val touristAttractionList = response.touristAttractionList
                 Log.d("list di repository", response.toString())
                 emit(Result.Success(touristAttractionList))
             } catch (e: Exception) {
                 Log.d("list", e.message.toString())
+                emit(Result.Error(e.message.toString()))
+            }
+        }
+
+    fun setUserPreferences(userId: String, userPreferences: List<String>): LiveData<Result<SetUserPreferencesResponse>> =
+        liveData(Dispatchers.IO) {
+            emit(Result.Loading)
+            try {
+                val response = apiService.setUserPreferences(userId, userPreferences)
+                emit(Result.Success(response))
+            } catch (e: Exception) {
                 emit(Result.Error(e.message.toString()))
             }
         }

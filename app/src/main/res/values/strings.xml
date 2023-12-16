@@ -24,7 +24,7 @@
     <string name="login_failed_dialog">Login gagal! Masukkan data email dan password dengan benar.</string>
     <string name="login_failed_dialog_title">Maaf!</string>
     <string name="dialog_positive_button">Lanjut</string>
-    <string name="register_dialog_message">Akunmu sudah jadi nih. Yuk, login dan segera bagikan ceritamu.</string>
+    <string name="register_dialog_message">Akunmu sudah jadi nih. Buruan login dan cari tempat wisatamu!</string>
     <string name="label_signup">Belum punya akun?</string>
     <string name="setting_title">Setting</string>
     <string name="search_bar">Search Bar</string>
@@ -32,4 +32,5 @@
     <string name="logout_title">Logout</string>
     <string name="rating">%1$.1f / 5 (%2$d users)</string>
     <string name="profile_title">Profile</string>
+    <string name="setUserPreferences_failed_dialog">Gagal Menyimpan Preferensi, Coba lagi.</string>
 </resources>

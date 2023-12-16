@@ -17,6 +17,7 @@ import com.example.tara.ViewModelFactory
 import com.example.tara.databinding.ActivityLoginBinding
 import com.example.tara.data.Result
 import com.example.tara.ui.signup.SignupActivity
+import com.example.tara.ui.userpreferences.UserPreferencesActivity
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var loginViewModel: LoginViewModel
@@ -32,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
 
         loginViewModel.getSession().observe(this) { user ->
             if (user.isLogin) {
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, UserPreferencesActivity::class.java))
                 finish()
             }
         }

@@ -25,6 +25,16 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         return token
     }
 
+    private fun getUserId(): String {
+        var userId = ""
+        viewModelScope.launch {
+            repository.getSession().collect{ user ->
+                userId = user.userId
+            }
+        }
+        return userId
+    }
+
     private val _userLocation = MediatorLiveData<Location>()
     val userLocation: LiveData<Location> = _userLocation
 
@@ -32,7 +42,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     val touristAttractionList: LiveData<Result<List<ListTouristAttractionItem>>> = _touristAttractionList
 
     fun getTouristAttractionList(city: String) {
-        val liveData = repository.getTouristAttractionList(getToken(), city)
+        val liveData = repository.getTouristAttractionList(getToken(), city, getUserId())
         Log.d("list", "city: $city")
         _touristAttractionList.addSource(liveData) { result ->
             _touristAttractionList.value = result
