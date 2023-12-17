@@ -73,11 +73,11 @@ class Repository private constructor(
             }
         }
 
-    fun setUserPreferences(userId: String, userPreferences: List<String>): LiveData<Result<SetUserPreferencesResponse>> =
+    fun setUserPreferences(token: String, userId: String, userPreferences: Array<String>): LiveData<Result<SetUserPreferencesResponse>> =
         liveData(Dispatchers.IO) {
             emit(Result.Loading)
             try {
-                val response = apiService.setUserPreferences(userId, userPreferences)
+                val response = apiService.setUserPreferences("Bearer $token", userId, userPreferences)
                 emit(Result.Success(response))
             } catch (e: Exception) {
                 emit(Result.Error(e.message.toString()))

@@ -25,8 +25,18 @@ class UserPreferencesViewModel(private val repository: Repository): ViewModel() 
         return userId
     }
 
-    fun setUserPreferences(userPreferences: List<String>) {
-        val liveData = repository.setUserPreferences(getUserId(), userPreferences)
+    private fun getToken(): String {
+        var token = ""
+        viewModelScope.launch {
+            repository.getSession().collect{ user ->
+                token = user.token
+            }
+        }
+        return token
+    }
+
+    fun setUserPreferences(userPreferences: Array<String>) {
+        val liveData = repository.setUserPreferences(getToken(), getUserId(), userPreferences)
         Log.d("user preferences", "userId: ${getUserId()}, userPreferences: $userPreferences")
         _userPreferencesResponse.addSource(liveData) { result ->
             _userPreferencesResponse.value = result

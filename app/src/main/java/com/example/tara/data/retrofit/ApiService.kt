@@ -31,7 +31,8 @@ interface ApiService {
     @FormUrlEncoded
     @POST("/users/user-preferences")
     suspend fun setUserPreferences(
+        @Header("Authorization") token: String,
         @Field("userId") userId: String,
-        @Field("userPreferences") userPreferences: List<String>
+        @Field("userPreferences") userPreferences: Array<String>
     ): SetUserPreferencesResponse
 }
