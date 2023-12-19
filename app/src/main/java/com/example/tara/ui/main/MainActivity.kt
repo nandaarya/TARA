@@ -19,7 +19,6 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tara.R
@@ -47,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     private var latitude: Double = 0.0
     private var city: String = ""
     private val interval: Long = 300000 //  5 minutes
-    private val fastestInterval: Long = 30000 // 30 seconds
+    private val fastestInterval: Long = 5000 // 5 seconds
     private lateinit var mLastLocation: Location
     private lateinit var mLocationRequest: LocationRequest
     private val requestPermissionCode = 999
@@ -138,6 +137,20 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+
+        with(binding) {
+            searchView.setupWithSearchBar(searchBar)
+            searchView
+                .editText
+                .setOnEditorActionListener { _, _, _ ->
+//                    searchBar.text = searchView.text
+                    searchView.hide()
+                    val filteredList = mainViewModel.findTouristAttraction(searchView.text.toString())
+                    rvTouristAttractionAdapter.addTouristAttraction(filteredList)
+                    Log.d("filter", searchView.text.toString())
+                    false
+                }
         }
     }
 

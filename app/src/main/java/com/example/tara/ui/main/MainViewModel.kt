@@ -38,8 +38,10 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     private val _userLocation = MediatorLiveData<Location>()
     val userLocation: LiveData<Location> = _userLocation
 
-    private val _touristAttractionList = MediatorLiveData<Result<List<ListTouristAttractionItem>>>()
-    val touristAttractionList: LiveData<Result<List<ListTouristAttractionItem>>> = _touristAttractionList
+    private var _touristAttractionList = MediatorLiveData<Result<List<ListTouristAttractionItem>>>()
+    var touristAttractionList: LiveData<Result<List<ListTouristAttractionItem>>> = _touristAttractionList
+
+    private var _filteredTouristAttractionList = MediatorLiveData<Result<List<ListTouristAttractionItem>>>()
 
     fun getTouristAttractionList(city: String) {
         val liveData = repository.getTouristAttractionList(getToken(), city, getUserId())
@@ -47,6 +49,27 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         _touristAttractionList.addSource(liveData) { result ->
             _touristAttractionList.value = result
         }
+    }
+
+    fun findTouristAttraction(query: String): List<ListTouristAttractionItem> {
+        val touristAttractionListResult = _touristAttractionList.value ?: return emptyList()
+
+        val filteredList = when (touristAttractionListResult) {
+            is Result.Success -> {
+                val list = touristAttractionListResult.data.filter { attraction ->
+                    attraction.locationName.contains(query, ignoreCase = true)
+                }
+                list
+            }
+            is Result.Loading -> {
+                emptyList()
+            }
+            is Result.Error -> {
+                emptyList()
+            }
+        }
+
+        return filteredList
     }
 
     fun saveUserLocation(userLocation: Location) {
