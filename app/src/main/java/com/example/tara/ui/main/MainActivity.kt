@@ -11,7 +11,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,16 +22,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tara.R
 import com.example.tara.ViewModelFactory
+import com.example.tara.data.Result
 import com.example.tara.databinding.ActivityMainBinding
 import com.example.tara.ui.login.LoginActivity
+import com.example.tara.ui.profile.ProfileActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
-import com.example.tara.data.Result
-import com.example.tara.ui.profile.ProfileActivity
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
@@ -45,8 +44,8 @@ class MainActivity : AppCompatActivity() {
     private var longitude: Double = 0.0
     private var latitude: Double = 0.0
     private var city: String = ""
-    private val interval: Long = 300000 //  5 minutes
-    private val fastestInterval: Long = 1000 // 5 seconds
+    private val interval: Long = 10000 //  10 seconds
+    private val fastestInterval: Long = 3000 // 3 seconds
     private lateinit var mLastLocation: Location
     private lateinit var mLocationRequest: LocationRequest
     private val requestPermissionCode = 999
@@ -64,7 +63,8 @@ class MainActivity : AppCompatActivity() {
 
     private val requestBackgroundLocationPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-            if (isGranted) {                Toast.makeText(this, "Background permission granted", Toast.LENGTH_SHORT).show()
+            if (isGranted) {
+                Toast.makeText(this, "Background permission granted", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Background Location Permission Denied", Toast.LENGTH_SHORT)
                     .show()
@@ -104,6 +104,8 @@ class MainActivity : AppCompatActivity() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         mLocationRequest = LocationRequest.create()
 
+        showLoading(true)
+
         checkGPSIsEnabled()
 
         checkForPermission(this)
@@ -127,6 +129,7 @@ class MainActivity : AppCompatActivity() {
                 is Result.Error -> {
                     showLoading(true)
                 }
+
                 is Result.Success -> {
                     if (it.data.isNotEmpty()) {
                         showLoading(false)
@@ -143,7 +146,8 @@ class MainActivity : AppCompatActivity() {
                 .setOnEditorActionListener { _, _, _ ->
 //                    searchBar.text = searchView.text
                     searchView.hide()
-                    val filteredList = mainViewModel.findTouristAttraction(searchView.text.toString())
+                    val filteredList =
+                        mainViewModel.findTouristAttraction(searchView.text.toString())
                     rvTouristAttractionAdapter.addTouristAttraction(filteredList)
                     false
                 }
@@ -158,6 +162,7 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
+
                 else -> false
             }
         }
@@ -267,10 +272,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getCityName(lat: Double,long: Double): String {
+    private fun getCityName(lat: Double, long: Double): String {
         val cityName: String?
         val geoCoder = Geocoder(this, Locale.getDefault())
-        val address = geoCoder.getFromLocation(lat,long,3)
+        val address = geoCoder.getFromLocation(lat, long, 3)
 
         cityName = address?.get(0)?.adminArea ?: "Kota Tidak Terdeteksi"
         return cityName
