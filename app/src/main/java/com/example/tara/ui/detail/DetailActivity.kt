@@ -1,8 +1,12 @@
 package com.example.tara.ui.detail
 
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.tara.R
 import com.example.tara.data.response.ListTouristAttractionItem
@@ -12,6 +16,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 
 class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -19,6 +24,7 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityDetailBinding
     lateinit var data: ListTouristAttractionItem
+    private lateinit var currentLocationData: Location
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +39,13 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
         } else {
             @Suppress("DEPRECATION")
             intent.getParcelableExtra(EXTRA_TOURIST_ATTRACTION_DATA)!!
+        }
+
+        currentLocationData = if (Build.VERSION.SDK_INT >= 33) {
+            intent.getParcelableExtra(EXTRA_USER_LOCATION, Location::class.java)!!
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra(EXTRA_USER_LOCATION)!!
         }
 
         binding.tvLocationName.text = data.locationName
@@ -59,10 +72,13 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
 
         mMap.uiSettings.isZoomControlsEnabled = true
-        mMap.uiSettings.isIndoorLevelPickerEnabled = true
-        mMap.uiSettings.isCompassEnabled = true
-        mMap.uiSettings.isMapToolbarEnabled = true
         mMap.uiSettings.isMyLocationButtonEnabled = true
+
+        val boundsBuilder = LatLngBounds.Builder()
+
+        val currentLocation = LatLng(currentLocationData.latitude, currentLocationData.longitude)
+        mMap.addMarker(MarkerOptions().position(currentLocation).title("Lokasi Anda"))
+        boundsBuilder.include(currentLocation)
 
         val location = LatLng(data.lat, data.lon)
         mMap.addMarker(
@@ -71,10 +87,21 @@ class DetailActivity : AppCompatActivity(), OnMapReadyCallback {
                 .title(data.locationName)
                 .snippet("${data.rating}/5 (${data.userRatingsTotal} users)")
         )
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
+        boundsBuilder.include(location)
+
+        val bounds: LatLngBounds = boundsBuilder.build()
+        mMap.animateCamera(
+            CameraUpdateFactory.newLatLngBounds(
+                bounds,
+                resources.displayMetrics.widthPixels,
+                resources.displayMetrics.heightPixels,
+                300
+            )
+        )
     }
 
     companion object {
         const val EXTRA_TOURIST_ATTRACTION_DATA = "Tourist Attraction Detail"
+        const val EXTRA_USER_LOCATION = "User Location"
     }
 }
