@@ -37,7 +37,6 @@ class UserPreferencesViewModel(private val repository: Repository): ViewModel() 
 
     fun setUserPreferences(userPreferences: Array<String>) {
         val liveData = repository.setUserPreferences(getToken(), getUserId(), userPreferences)
-        Log.d("user preferences", "userId: ${getUserId()}, userPreferences: $userPreferences")
         _userPreferencesResponse.addSource(liveData) { result ->
             _userPreferencesResponse.value = result
         }

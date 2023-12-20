@@ -49,9 +49,6 @@ class TouristAttractionAdapter (val userLocation: Location) :
         fun bind(position: Int) {
             val itemNow = listOfTouristAttraction[position]
 
-            Log.d("rv", itemNow.toString())
-            Log.d("rv", "lat: ${userLocation.latitude}, lon: ${userLocation.longitude}")
-
             val geoCoder = Geocoder(itemView.context, Locale.getDefault())
             val address = geoCoder.getFromLocation(itemNow.lat,itemNow.lon,3)
             val location = address?.get(0)?.subAdminArea ?: "Kota Tidak Terdeteksi"

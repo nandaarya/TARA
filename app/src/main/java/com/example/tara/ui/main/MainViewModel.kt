@@ -45,7 +45,6 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
     fun getTouristAttractionList(city: String) {
         val liveData = repository.getTouristAttractionList(getToken(), city, getUserId())
-        Log.d("list", "city: $city")
         _touristAttractionList.addSource(liveData) { result ->
             _touristAttractionList.value = result
         }

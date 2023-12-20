@@ -65,10 +65,8 @@ class Repository private constructor(
             try {
 //                val response = apiService.getTouristAttractionList( "Bearer $token", city, userId)
 //                val touristAttractionList = response.touristAttractionList
-//                Log.d("list di repository", response.toString())
                 emit(Result.Success(DataDummy.touristAttractionList))
             } catch (e: Exception) {
-                Log.d("list", e.message.toString())
                 emit(Result.Error(e.message.toString()))
             }
         }

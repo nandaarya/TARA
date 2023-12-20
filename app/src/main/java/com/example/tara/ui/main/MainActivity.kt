@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     private var latitude: Double = 0.0
     private var city: String = ""
     private val interval: Long = 300000 //  5 minutes
-    private val fastestInterval: Long = 5000 // 5 seconds
+    private val fastestInterval: Long = 1000 // 5 seconds
     private lateinit var mLastLocation: Location
     private lateinit var mLocationRequest: LocationRequest
     private val requestPermissionCode = 999
@@ -122,18 +122,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         mainViewModel.touristAttractionList.observe(this) {
-            Log.d("list", "TES OBSERVER JALAN GA COK")
             when (it) {
                 is Result.Loading -> showLoading(true)
                 is Result.Error -> {
                     showLoading(true)
-                    Log.d("list", "ERROR KAH")
                 }
                 is Result.Success -> {
                     if (it.data.isNotEmpty()) {
                         showLoading(false)
                         rvTouristAttractionAdapter.addTouristAttraction(it.data)
-                        Log.d("list", it.data.toString())
                     }
                 }
             }
@@ -148,7 +145,6 @@ class MainActivity : AppCompatActivity() {
                     searchView.hide()
                     val filteredList = mainViewModel.findTouristAttraction(searchView.text.toString())
                     rvTouristAttractionAdapter.addTouristAttraction(filteredList)
-                    Log.d("filter", searchView.text.toString())
                     false
                 }
         }
@@ -196,7 +192,6 @@ class MainActivity : AppCompatActivity() {
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             locationResult.lastLocation
-            Log.d("MainActivity", "callback: $latitude $longitude")
             locationResult.lastLocation?.let {
                 locationChanged(it)
                 mainViewModel.saveUserLocation(it)
@@ -256,7 +251,6 @@ class MainActivity : AppCompatActivity() {
 //        binding.latitudeText.text = "Latitude: $latitude"
         binding.tvCity.text = city
         mainViewModel.getTouristAttractionList(city)
-        Log.d("MainActivity", "function: $latitude $longitude, City: $city")
     }
 
     override fun onRequestPermissionsResult(

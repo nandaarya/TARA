@@ -115,9 +115,7 @@ class UserPreferencesActivity : AppCompatActivity() {
         }
 
         binding.btnSave.setOnClickListener {
-            Log.d("preferences", selectedPreferences.toString())
             val preferencesArray = selectedPreferences.toTypedArray()
-            Log.d("preferences-array", preferencesArray.toString())
             userPreferencesViewModel.setUserPreferences(preferencesArray)
         }
     }
