@@ -140,7 +140,7 @@
             tools:alpha="100">
 
             <com.example.tara.ui.customview.PasswordEditText
-                android:id="@+id/passwordEditText"
+                android:id="@+id/edt_password_signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"

@@ -92,9 +92,9 @@ class LoginActivity : AppCompatActivity() {
     private fun setupAction() {
         binding.loginButton.setOnClickListener {
             binding.apply {
-                if (emailEditText.error.isNullOrEmpty() && passwordEditText.error.isNullOrEmpty()) {
+                if (emailEditText.error.isNullOrEmpty() && edtPasswordLogin.error.isNullOrEmpty()) {
                     val email = emailEditText.text.toString().trim()
-                    val password = passwordEditText.text.toString().trim()
+                    val password = edtPasswordLogin.text.toString().trim()
                     loginViewModel.login(email, password)
                 }
             }

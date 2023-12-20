@@ -33,4 +33,13 @@
     <string name="rating">%1$.1f / 5 (%2$d users)</string>
     <string name="profile_title">Profile</string>
     <string name="setUserPreferences_failed_dialog">Gagal Menyimpan Preferensi, Coba lagi.</string>
+    <string name="pantai">Pantai</string>
+    <string name="gunung">Gunung</string>
+    <string name="museum">Museum</string>
+    <string name="taman">Taman</string>
+    <string name="goa">Goa</string>
+    <string name="candi">Candi</string>
+    <string name="bukit">Bukit</string>
+    <string name="kebun">Kebun</string>
+    <string name="tampilkan_rekomendasi">Tampilkan Rekomendasi</string>
 </resources>

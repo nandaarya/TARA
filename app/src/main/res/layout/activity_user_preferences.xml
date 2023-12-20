@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/user_preferences_activity_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.userpreferences.UserPreferencesActivity">
@@ -37,7 +38,7 @@
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:text="Pantai"
+            android:text="@string/pantai"
             android:textAlignment="center" />
 
         <com.google.android.material.chip.Chip
@@ -45,7 +46,7 @@
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:text="Gunung"
+            android:text="@string/gunung"
             android:textAlignment="center" />
 
         <com.google.android.material.chip.Chip
@@ -53,7 +54,7 @@
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:text="Museum"
+            android:text="@string/museum"
             android:textAlignment="center" />
 
         <com.google.android.material.chip.Chip
@@ -61,7 +62,7 @@
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:text="Taman"
+            android:text="@string/taman"
             android:textAlignment="center" />
 
         <com.google.android.material.chip.Chip
@@ -69,7 +70,7 @@
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:text="Goa"
+            android:text="@string/goa"
             android:textAlignment="center" />
 
         <com.google.android.material.chip.Chip
@@ -77,7 +78,7 @@
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:text="Candi"
+            android:text="@string/candi"
             android:textAlignment="center" />
 
         <com.google.android.material.chip.Chip
@@ -85,7 +86,7 @@
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:text="Bukit"
+            android:text="@string/bukit"
             android:textAlignment="center" />
 
         <com.google.android.material.chip.Chip
@@ -93,7 +94,7 @@
             style="@style/Widget.Material3.Chip.Filter"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:text="Kebun"
+            android:text="@string/kebun"
             android:textAlignment="center" />
 
     </com.google.android.material.chip.ChipGroup>
@@ -104,7 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="24dp"
-        android:text="Tampilkan Rekomendasi"
+        android:text="@string/tampilkan_rekomendasi"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

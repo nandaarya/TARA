@@ -79,10 +79,10 @@ class SignupActivity : AppCompatActivity() {
     private fun setupAction() {
         binding.signupButton.setOnClickListener {
             binding.apply {
-                if (nameEditText.error.isNullOrEmpty() && emailEditText.error.isNullOrEmpty() && passwordEditText.error.isNullOrEmpty()) {
+                if (nameEditText.error.isNullOrEmpty() && emailEditText.error.isNullOrEmpty() && edtPasswordSignup.error.isNullOrEmpty()) {
                     val name = nameEditText.text.toString().trim()
                     val email = emailEditText.text.toString().trim()
-                    val password = passwordEditText.text.toString().trim()
+                    val password = edtPasswordSignup.text.toString().trim()
                     signupViewModel.register(name, email, password)
                 } else {
                     registerFailedToast()
