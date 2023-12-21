@@ -199,19 +199,19 @@ class MainActivity : AppCompatActivity() {
             locationResult.lastLocation
             locationResult.lastLocation?.let {
                 locationChanged(it)
-                latitude = locationResult.lastLocation?.latitude ?: 0.0
-                longitude = locationResult.lastLocation?.longitude ?: 0.0
-                if (city != getCityName(latitude, longitude)) {
-                    city = getCityName(latitude, longitude)
-                    binding.tvCity.text = city
-                    mainViewModel.saveUserLocation(it)
-                }
-                Log.d("location", "location update: ${locationResult.lastLocation}")
             }
-//            city = getCityName(latitude, longitude)
-////            binding.longitudeText.text = "Longitude: $longitude"
-////            binding.latitudeText.text = "Latitude: $latitude"
-//            binding.tvCity.text = "City: $city"
+        }
+    }
+
+    fun locationChanged(location: Location) {
+        mLastLocation = location
+        longitude = mLastLocation.longitude
+        latitude = mLastLocation.latitude
+        if (city != getCityName(latitude, longitude)) {
+            city = getCityName(latitude, longitude)
+            binding.tvCity.text = city
+            mainViewModel.saveUserLocation(location)
+            mainViewModel.getTouristAttractionList(city)
         }
     }
 
@@ -249,17 +249,6 @@ class MainActivity : AppCompatActivity() {
                 }
             val alert: AlertDialog = builder.create()
             alert.show()
-        }
-    }
-
-    fun locationChanged(location: Location) {
-        mLastLocation = location
-        longitude = mLastLocation.longitude
-        latitude = mLastLocation.latitude
-        if (city != getCityName(latitude, longitude)) {
-            city = getCityName(latitude, longitude)
-            binding.tvCity.text = city
-            mainViewModel.getTouristAttractionList(city)
         }
     }
 
