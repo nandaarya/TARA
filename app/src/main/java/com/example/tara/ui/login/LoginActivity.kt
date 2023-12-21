@@ -4,18 +4,17 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.tara.ui.main.MainActivity
 import com.example.tara.R
 import com.example.tara.ViewModelFactory
-import com.example.tara.databinding.ActivityLoginBinding
 import com.example.tara.data.Result
+import com.example.tara.databinding.ActivityLoginBinding
 import com.example.tara.ui.signup.SignupActivity
 import com.example.tara.ui.userpreferences.UserPreferencesActivity
 
@@ -45,19 +44,6 @@ class LoginActivity : AppCompatActivity() {
                 }
                 is Result.Success -> {
                     showLoading(false)
-//                    AlertDialog.Builder(this).apply {
-//                        setTitle("Yeah!")
-//                        setMessage(getString(R.string.login_dialog_message))
-//                        setCancelable(false)
-//                        setPositiveButton(getString(R.string.dialog_positive_button)) { _, _ ->
-//                            val intent = Intent(context, MainActivity::class.java)
-//                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-//                            startActivity(intent)
-//                            finish()
-//                        }
-//                        create()
-//                        show()
-//                    }
                 }
                 is Result.Error -> {
                     AlertDialog.Builder(this).apply {
@@ -98,8 +84,6 @@ class LoginActivity : AppCompatActivity() {
                     loginViewModel.login(email, password)
                 }
             }
-//            startActivity(Intent(this, MainActivity::class.java))
-//            finish()
         }
 
         binding.btnSignup.setOnClickListener {

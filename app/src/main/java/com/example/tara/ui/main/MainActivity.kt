@@ -11,6 +11,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -124,6 +125,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         mainViewModel.touristAttractionList.observe(this) {
+            Log.d("list", it.toString())
             when (it) {
                 is Result.Loading -> showLoading(true)
                 is Result.Error -> {

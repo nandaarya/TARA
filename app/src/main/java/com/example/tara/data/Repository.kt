@@ -63,9 +63,11 @@ class Repository private constructor(
         liveData(Dispatchers.IO) {
             emit(Result.Loading)
             try {
-//                val response = apiService.getTouristAttractionList( "Bearer $token", city, userId)
-//                val touristAttractionList = response.touristAttractionList
-                emit(Result.Success(DataDummy.touristAttractionList))
+                Log.d("list repository", "Mulai get data list")
+                val response = apiService.getTouristAttractionList( "Bearer $token", city, userId)
+                Log.d("list repository", response.message)
+                val touristAttractionList = response.touristAttractionList
+                emit(Result.Success(touristAttractionList))
             } catch (e: Exception) {
                 emit(Result.Error(e.message.toString()))
             }

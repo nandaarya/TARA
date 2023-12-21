@@ -21,7 +21,7 @@ data class TouristAttractionListResponse(
 data class ListTouristAttractionItem(
 
 	@field:SerializedName("id")
-	val id: String,
+	val id: Int,
 
 	@field:SerializedName("locationName")
 	val locationName: String,
@@ -33,7 +33,7 @@ data class ListTouristAttractionItem(
 	val photoUrl: String,
 
 	@field:SerializedName("rating")
-	val rating: Double,
+	val rating: Float,
 
     @field:SerializedName("userRatingsTotal")
     val userRatingsTotal: Int,
