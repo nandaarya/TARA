@@ -11,6 +11,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -129,7 +130,6 @@ class MainActivity : AppCompatActivity() {
                 is Result.Error -> {
                     showLoading(true)
                 }
-
                 is Result.Success -> {
                     if (it.data.isNotEmpty()) {
                         showLoading(false)
@@ -199,14 +199,19 @@ class MainActivity : AppCompatActivity() {
             locationResult.lastLocation
             locationResult.lastLocation?.let {
                 locationChanged(it)
-                mainViewModel.saveUserLocation(it)
+                latitude = locationResult.lastLocation?.latitude ?: 0.0
+                longitude = locationResult.lastLocation?.longitude ?: 0.0
+                if (city != getCityName(latitude, longitude)) {
+                    city = getCityName(latitude, longitude)
+                    binding.tvCity.text = city
+                    mainViewModel.saveUserLocation(it)
+                }
+                Log.d("location", "location update: ${locationResult.lastLocation}")
             }
-            latitude = locationResult.lastLocation?.latitude ?: 0.0
-            longitude = locationResult.lastLocation?.longitude ?: 0.0
-            city = getCityName(latitude, longitude)
-//            binding.longitudeText.text = "Longitude: $longitude"
-//            binding.latitudeText.text = "Latitude: $latitude"
-            binding.tvCity.text = "City: $city"
+//            city = getCityName(latitude, longitude)
+////            binding.longitudeText.text = "Longitude: $longitude"
+////            binding.latitudeText.text = "Latitude: $latitude"
+//            binding.tvCity.text = "City: $city"
         }
     }
 
@@ -251,11 +256,11 @@ class MainActivity : AppCompatActivity() {
         mLastLocation = location
         longitude = mLastLocation.longitude
         latitude = mLastLocation.latitude
-        city = getCityName(latitude, longitude)
-//        binding.longitudeText.text = "Longitude: $longitude"
-//        binding.latitudeText.text = "Latitude: $latitude"
-        binding.tvCity.text = city
-        mainViewModel.getTouristAttractionList(city)
+        if (city != getCityName(latitude, longitude)) {
+            city = getCityName(latitude, longitude)
+            binding.tvCity.text = city
+            mainViewModel.getTouristAttractionList(city)
+        }
     }
 
     override fun onRequestPermissionsResult(
